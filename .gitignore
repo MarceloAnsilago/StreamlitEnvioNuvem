@@ -1,0 +1,20 @@
+# Ignore o ambiente virtual
+venv/
+
+# Ignore configurações do VS Code
+.vscode/
+
+# Ignore arquivos compilados do Python
+__pycache__/
+*.py[cod]
+
+# Ignore capturas de tela ou imagens temporárias
+*.png
+*.jpg
+*.jpeg
+
+# Ignore configurações e logs do sistema
+*.log
+*.env
+.DS_Store
+Thumbs.db
