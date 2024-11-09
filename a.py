@@ -1,23 +1,23 @@
 import streamlit as st
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
 from PIL import Image
 import time
 
 st.title("Exibir QR Code do WhatsApp Web")
 
-# Configuração do ChromeDriver para o Streamlit Cloud
-chrome_options = Options()
-chrome_options.add_argument("--headless")  # Executa em modo headless
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--window-size=1024,768")
+# Configuração do Firefox para o Streamlit Cloud
+firefox_options = Options()
+firefox_options.add_argument("--headless")  # Executa em modo headless
+firefox_options.add_argument("--no-sandbox")
+firefox_options.add_argument("--disable-dev-shm-usage")
+firefox_options.add_argument("--window-size=1024,768")
 
 if st.button("Abrir WhatsApp Web e Exibir QR Code"):
-    # Inicializa o driver com o caminho do ChromeDriver no Streamlit Cloud
-    service = Service("/usr/bin/chromedriver")
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    # Inicializa o driver com o caminho do GeckoDriver no Streamlit Cloud
+    service = Service("/usr/bin/geckodriver")
+    driver = webdriver.Firefox(service=service, options=firefox_options)
     whatsapp_url = "https://web.whatsapp.com/"
     
     # Acessa o WhatsApp Web
