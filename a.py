@@ -90,11 +90,11 @@ def iniciar_driver():
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-software-rasterizer')
 
-    # Iniciar o ChromeDriver com uma versão específica
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()), options=options)
+    # Iniciar o ChromeDriver sem especificar uma versão
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get('https://web.whatsapp.com')
     st.write("Aguarde enquanto o WhatsApp Web carrega...")
-    time.sleep(5)
+    time.sleep(5)  # Aguardar o carregamento do WhatsApp Web
 
     return driver
 
