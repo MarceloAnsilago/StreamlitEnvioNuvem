@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import re
 import random
-import os
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -74,19 +73,13 @@ with col1:
 with col2:
     tempo_maximo = st.number_input("Tempo máximo entre envios (segundos)", min_value=1, value=15)
 
-# Salvar as configurações no Streamlit e confirmar ao usuário
 st.write("Configurações definidas:")
 st.write(f"Mensagem padrão: {mensagem_customizada}")
 st.write(f"Tempo mínimo entre envios: {tempo_minimo} segundos")
 st.write(f"Tempo máximo entre envios: {tempo_maximo} segundos")
 
-# Botão para avançar para a próxima etapa
 if st.button("Avançar para o envio de mensagens"):
     st.success("Configurações salvas! Pronto para a etapa de envio.")
-
-
-# Função para iniciar o driver do Selenium
-from webdriver_manager.chrome import ChromeDriverManager
 
 # Função para iniciar o driver do Selenium
 def iniciar_driver():
@@ -97,13 +90,11 @@ def iniciar_driver():
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-software-rasterizer')
 
-    # Iniciar o ChromeDriver
-    options.binary_location = "/usr/bin/chromium-browser"  # Caminho comum para o Chromium
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-    driver.get('https://webdriver = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()), options=options).whatsapp.com')
+    # Iniciar o ChromeDriver com uma versão específica
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()), options=options)
+    driver.get('https://web.whatsapp.com')
     st.write("Aguarde enquanto o WhatsApp Web carrega...")
-    time.sleep(5)  # Aguardar o carregamento do WhatsApp Web
+    time.sleep(5)
 
     return driver
 
@@ -116,13 +107,12 @@ def criar_link_whatsapp(numero, mensagem):
 # Função para enviar a mensagem pelo WhatsApp Web
 def disparar_mensagem(driver, link_whatsapp):
     driver.get(link_whatsapp)
-    time.sleep(5)  # Aguardar o carregamento da conversa
+    time.sleep(5)
 
     try:
-        # Enviar mensagem clicando no botão de enviar
         botao_enviar = driver.find_element(By.XPATH, '//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[2]/button')
         botao_enviar.click()
-        time.sleep(2)  # Aguardar o envio
+        time.sleep(2)
         return True
     except Exception as e:
         st.error(f"Erro ao enviar mensagem: {e}")
@@ -142,7 +132,6 @@ def enviar_mensagens_com_intervalo(df, driver, mensagem_base, tempo_minimo, temp
         else:
             df.at[index, 'Status'] = 'Erro no envio'
         
-        # Intervalo aleatório entre envios
         intervalo = random.randint(tempo_minimo, tempo_maximo)
         st.write(f"Aguardando {intervalo} segundos antes do próximo envio...")
         time.sleep(intervalo)
@@ -158,5 +147,4 @@ if st.button("Iniciar envio de mensagens"):
         finally:
             driver.quit()
     else:
-        st.warning("Por favor, faça o upload de um arquivo antes de iniciar o envio.")    
-
+        st.warning("Por favor, faça o upload de um arquivo antes de iniciar o envio.")
