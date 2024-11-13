@@ -87,20 +87,22 @@ if st.button("Avançar para o envio de mensagens"):
 # Função para iniciar o driver do Selenium
 from webdriver_manager.chrome import ChromeDriverManager
 
+# Função para iniciar o driver do Selenium
 def iniciar_driver():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    
-    # Ajustar para usar uma versão específica do ChromeDriver
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()), options=options)
+    options.add_argument('--disable-gpu')
+    options.add_argument('--disable-software-rasterizer')
+
+    # Iniciar o ChromeDriver
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get('https://web.whatsapp.com')
     st.write("Aguarde enquanto o WhatsApp Web carrega...")
     time.sleep(5)  # Aguardar o carregamento do WhatsApp Web
 
     return driver
-
 
 # Função para criar o link de envio do WhatsApp
 def criar_link_whatsapp(numero, mensagem):
