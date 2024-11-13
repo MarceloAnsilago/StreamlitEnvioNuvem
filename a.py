@@ -99,7 +99,7 @@ def iniciar_driver():
 
     # Iniciar o ChromeDriver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.get('https://web.whatsapp.com')
+    driver.get('https://webdriver = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()), options=options).whatsapp.com')
     st.write("Aguarde enquanto o WhatsApp Web carrega...")
     time.sleep(5)  # Aguardar o carregamento do WhatsApp Web
 
